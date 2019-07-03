@@ -107,9 +107,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 number1 = txt_hsp.text.toString().toDouble()
                 operation = "/"
                 clear()
-                img_division.isClickable = false
                 nmbr1.setText(number1.toString())
+                nmbr2.setText("")
                 oprt.setText("/")
+                img_plus.isClickable = false
+                img_minus.isClickable = false
+                img_division.isClickable = false
+                img_multiply.isClickable = false
 
             }
 
@@ -117,28 +121,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 number1 = txt_hsp.text.toString().toDouble()
                 operation = "*"
                 clear()
-                img_multiply.isClickable = false
                 nmbr1.setText(number1.toString())
+                nmbr2.setText("")
                 oprt.setText("*")
-
+                img_plus.isClickable = false
+                img_minus.isClickable = false
+                img_division.isClickable = false
+                img_multiply.isClickable = false
             }
 
             R.id.img_minus -> {
                 number1 = txt_hsp.text.toString().toDouble()
                 operation = "-"
                 clear()
-                img_minus.isClickable = false
                 nmbr1.setText(number1.toString())
+                nmbr2.setText("")
                 oprt.setText("-")
+                img_plus.isClickable = false
+                img_minus.isClickable = false
+                img_division.isClickable = false
+                img_multiply.isClickable = false
             }
 
             R.id.img_plus -> {
                 number1 = txt_hsp.text.toString().toDouble()
                 operation = "+"
                 clear()
-                img_plus.isClickable = false
                 nmbr1.setText(number1.toString())
+                nmbr2.setText("")
                 oprt.setText("+")
+                img_plus.isClickable = false
+                img_minus.isClickable = false
+                img_division.isClickable = false
+                img_multiply.isClickable = false
             }
 
             R.id.img_equal -> {
@@ -152,27 +167,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             nmbr2.setText(number2.toString())
                             txt_hsp.setText((number1!! + number2!!).toString())
                             img_plus.isClickable = true
+                            img_minus.isClickable = true
+                            img_division.isClickable = true
+                            img_multiply.isClickable = true
+                            isMaths = true
                         }
                         "-" -> {
                             number2 = txt_hsp.text.toString().toDouble()
                             clear()
                             nmbr2.setText(number2.toString())
                             txt_hsp.setText((number1!! - number2!!).toString())
+                            img_plus.isClickable = true
                             img_minus.isClickable = true
+                            img_division.isClickable = true
+                            img_multiply.isClickable = true
+                            isMaths = true
                         }
                         "/" -> {
                             number2 = txt_hsp.text.toString().toDouble()
                             clear()
                             nmbr2.setText(number2.toString())
                             txt_hsp.setText((number1!! / number2!!).toString())
+                            img_plus.isClickable = true
+                            img_minus.isClickable = true
                             img_division.isClickable = true
+                            img_multiply.isClickable = true
+                            isMaths = true
                         }
                         "*" -> {
                             number2 = txt_hsp.text.toString().toDouble()
                             clear()
                             nmbr2.setText(number2.toString())
                             txt_hsp.setText((number1!! * number2!!).toString())
+                            img_plus.isClickable = true
+                            img_minus.isClickable = true
+                            img_division.isClickable = true
                             img_multiply.isClickable = true
+                            isMaths = true
                         }
 
 
@@ -186,22 +217,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.img_maths -> {
-                if (isMaths) {
+                if (txt_hsp.text.isEmpty()!=true && txt_hsp.text!=0.toString()) {
+                    if (isMaths) {
 
-                    val txt = "-${txt_hsp.text}"
-                    txt_hsp.setText(txt)
+                        val txt = "-${txt_hsp.text}"
+                        txt_hsp.setText(txt)
+                        isMaths = false
 
 
-                } else {
+                    } else {
 
-
-                    txt_hsp.setText((txt_hsp.text.toString().toDouble() * -1).toString())
+                        val txt = ((txt_hsp.text.toString().toDouble()) * -1).toString()
+                        txt_hsp.setText(txt)
+                        isMaths = true
+                    }
                 }
             }
-
             R.id.txt_comma -> {
 
-                val txt = "${txt_hsp.text},"
+                val txt = "${txt_hsp.text}."
                 txt_hsp.setText(txt)
                 txt_comma.isClickable = false
 
@@ -220,6 +254,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        txt_hsp.text = 0.toString()
 
 
 
@@ -248,7 +283,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     fun clear() {
-        txt_hsp.setText("")
+        txt_hsp.setText(0.toString())
     }
 
 }
